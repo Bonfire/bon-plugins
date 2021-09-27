@@ -10,7 +10,7 @@ In order to add these plugins to your OpenOSRS, please use the information below
 **Github Repository name:** bon-plugins
 
 
-To use my plugins you must have Illumine's repo for the iUtils plugin. 
+You must also use Illumine's iUtil's plugin (**The iUtils plugin must be enabled!**):
 
 **Github Repository owner:** illumineawake
 
