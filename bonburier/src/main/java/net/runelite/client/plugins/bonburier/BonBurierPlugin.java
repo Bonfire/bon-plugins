@@ -33,7 +33,7 @@ import java.time.Instant;
 @Extension
 @PluginDependency(iUtils.class)
 @PluginDescriptor(
-        name = "BonBurier",
+        name = "Bon Burier",
         description = "Buries bones"
 )
 @Slf4j
@@ -190,7 +190,7 @@ public class BonBurierPlugin extends Plugin {
         }
 
         // If the player is moving
-        if (localPlayer.getPoseAnimation() != 808) {
+        if (localPlayer.getPoseAnimation() != 813 && localPlayer.getPoseAnimation() != 5160 && localPlayer.getPoseAnimation() != 808) {
             timeout = tickDelay();
             return BonBurierState.MOVING;
         }

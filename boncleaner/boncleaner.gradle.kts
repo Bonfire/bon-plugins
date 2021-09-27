@@ -25,10 +25,10 @@ import ProjectVersions.openosrsVersion
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = "1.0.2"
+version = "1.0.0"
 
-project.extra["PluginName"] = "Bon Burier" // This is the name that is used in the external plugin manager panel
-project.extra["PluginDescription"] = "Buries bones" // This is the description that is used in the external plugin manager panel
+project.extra["PluginName"] = "Bon Cleaner" // This is the name that is used in the external plugin manager panel
+project.extra["PluginDescription"] = "Cleans finds in the Varrock Museum" // This is the description that is used in the external plugin manager panel
 project.extra["GithubUrl"] = "https://github.com/Bonfire/bon-plugins"
 
 
