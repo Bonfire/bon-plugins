@@ -44,7 +44,7 @@ public interface BonBurierConfig extends Config {
             section = "instructionsTitle"
     )
     default String instructions() {
-        return "Plugin instructions here";
+        return "Select a Bank Object ID (Bank Booth) and a Bone ID. The plugin will automatically bank and bury bones.";
     }
 
     @ConfigSection(
