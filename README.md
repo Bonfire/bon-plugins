@@ -18,6 +18,7 @@ You must also use Illumine's iUtil's plugin (**The iUtils plugin must be enabled
 
 ## Plugins List
 * BonBurier - Automatically withdraws and buries bones
+* BonCleaner - Cleans finds in the Varrock Museum (INCOMPLETE)
 
 ## Credits
 Thank you to Ell-tt, Illumine, and Oli for their plugin repos which I used as examples when creating this repo.
