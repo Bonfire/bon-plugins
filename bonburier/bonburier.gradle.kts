@@ -27,7 +27,7 @@ import ProjectVersions.openosrsVersion
 
 version = "1.0.1"
 
-project.extra["PluginName"] = "BonBurier" // This is the name that is used in the external plugin manager panel
+project.extra["PluginName"] = "Bon Burier" // This is the name that is used in the external plugin manager panel
 project.extra["PluginDescription"] = "Buries bones" // This is the description that is used in the external plugin manager panel
 project.extra["GithubUrl"] = "https://github.com/Bonfire/bon-plugins"
 
