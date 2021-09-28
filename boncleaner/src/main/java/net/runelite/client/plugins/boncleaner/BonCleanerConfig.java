@@ -1,5 +1,6 @@
 package net.runelite.client.plugins.boncleaner;
 
+import net.runelite.api.Skill;
 import net.runelite.client.config.*;
 
 @ConfigGroup("BonCleaner")
@@ -27,7 +28,7 @@ public interface BonCleanerConfig extends Config {
             keyName = "uiTitle",
             name = "UI Config",
             description = "",
-            position = 140
+            position = 0
     )
     String uiTitle = "uiTitle";
 
@@ -35,7 +36,7 @@ public interface BonCleanerConfig extends Config {
             keyName = "delayConfig",
             name = "Sleep Delay Configuration",
             description = "Configure how the bot handles sleep delays",
-            position = 2
+            position = 1
     )
     String delayConfig = "delayConfig";
 
@@ -47,7 +48,7 @@ public interface BonCleanerConfig extends Config {
             keyName = "sleepMin",
             name = "Sleep Min",
             description = "",
-            position = 3,
+            position = 2,
             section = "delayConfig"
     )
     default int sleepMin() {
@@ -62,7 +63,7 @@ public interface BonCleanerConfig extends Config {
             keyName = "sleepMax",
             name = "Sleep Max",
             description = "",
-            position = 4,
+            position = 3,
             section = "delayConfig"
     )
     default int sleepMax() {
@@ -77,7 +78,7 @@ public interface BonCleanerConfig extends Config {
             keyName = "sleepTarget",
             name = "Sleep Target",
             description = "",
-            position = 5,
+            position = 4,
             section = "delayConfig"
     )
     default int sleepTarget() {
@@ -92,7 +93,7 @@ public interface BonCleanerConfig extends Config {
             keyName = "sleepDeviation",
             name = "Sleep Deviation",
             description = "",
-            position = 6,
+            position = 5,
             section = "delayConfig"
     )
     default int sleepDeviation() {
@@ -103,7 +104,7 @@ public interface BonCleanerConfig extends Config {
             keyName = "sleepWeightedDistribution",
             name = "Sleep Weighted Distribution",
             description = "Shifts the random distribution towards the lower end at the target, otherwise it will be an even distribution",
-            position = 7,
+            position = 6,
             section = "delayConfig"
     )
     default boolean sleepWeightedDistribution() {
@@ -114,7 +115,7 @@ public interface BonCleanerConfig extends Config {
             keyName = "delayTickConfig",
             name = "Game Tick Configuration",
             description = "Configure how the bot handles game tick delays, 1 game tick equates to roughly 600ms",
-            position = 8
+            position = 10
     )
     String delayTickConfig = "delayTickConfig";
 
@@ -126,7 +127,7 @@ public interface BonCleanerConfig extends Config {
             keyName = "tickDelayMin",
             name = "Game Tick Min",
             description = "",
-            position = 9,
+            position = 11,
             section = "delayTickConfig"
     )
     default int tickDelayMin() {
@@ -141,7 +142,7 @@ public interface BonCleanerConfig extends Config {
             keyName = "tickDelayMax",
             name = "Game Tick Max",
             description = "",
-            position = 10,
+            position = 12,
             section = "delayTickConfig"
     )
     default int tickDelayMax() {
@@ -156,7 +157,7 @@ public interface BonCleanerConfig extends Config {
             keyName = "tickDelayTarget",
             name = "Game Tick Target",
             description = "",
-            position = 11,
+            position = 13,
             section = "delayTickConfig"
     )
     default int tickDelayTarget() {
@@ -171,7 +172,7 @@ public interface BonCleanerConfig extends Config {
             keyName = "tickDelayDeviation",
             name = "Game Tick Deviation",
             description = "",
-            position = 12,
+            position = 14,
             section = "delayTickConfig"
     )
     default int tickDelayDeviation() {
@@ -182,10 +183,41 @@ public interface BonCleanerConfig extends Config {
             keyName = "tickDelayWeightedDistribution",
             name = "Game Tick Weighted Distribution",
             description = "Shifts the random distribution towards the lower end at the target, otherwise it will be an even distribution",
-            position = 13,
+            position = 15,
             section = "delayTickConfig"
     )
     default boolean tickDelayWeightedDistribution() {
+        return false;
+    }
+
+    @ConfigSection(
+            keyName = "cleaningConfig",
+            name = "Cleaning Configuration",
+            description = "Configure how the bot cleans finds",
+            position = 20
+    )
+    String cleaningConfig = "cleaningConfig";
+
+    @ConfigItem(
+            keyName = "xpSkill",
+            name = "Lamp Skill",
+            description = "Choose a skill to use your lamps on",
+            position = 21,
+            section = "cleaningConfig"
+    )
+
+    default Skill xpSkill() {
+        return Skill.SLAYER;
+    }
+
+    @ConfigItem(
+            keyName = "quickTake",
+            name = "Quickly Take Finds",
+            description = "Enable to rapidly click on the specimen pile",
+            position = 22,
+            section = "cleaningConfig"
+    )
+    default boolean quickTake() {
         return false;
     }
 

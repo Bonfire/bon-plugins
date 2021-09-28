@@ -61,10 +61,6 @@ public class BonCleanerOverlay extends OverlayPanel {
             tableComponent.addRow("Status:", "ACTIVE");
         }
 
-        TableComponent tableStatsComponent = new TableComponent();
-        tableStatsComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
-        tableStatsComponent.addRow("Bones Buried:", plugin.findsCleaned + " (" + QuantityFormatter.quantityToStackSize(plugin.getFindsPerHour()) + "/hr)");
-
         TableComponent tableDelayComponent = new TableComponent();
         tableDelayComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
         tableDelayComponent.addRow("Sleep delay:", plugin.sleepLength + "ms");
@@ -78,11 +74,6 @@ public class BonCleanerOverlay extends OverlayPanel {
                     .color(ColorUtil.fromHex("#40C4FF"))
                     .build());
             panelComponent.getChildren().add(tableComponent);
-            panelComponent.getChildren().add(TitleComponent.builder()
-                    .text("Stats")
-                    .color(ColorUtil.fromHex("#45D463"))
-                    .build());
-            panelComponent.getChildren().add(tableStatsComponent);
             panelComponent.getChildren().add(TitleComponent.builder()
                     .text("Delays")
                     .color(ColorUtil.fromHex("#F8BBD0"))

@@ -7,9 +7,14 @@ public enum BonCleanerState
     TICK_TIMER,
     MOVING,
     NEED_TOOLS,
-    INVENTORY_EMPTY,
     GET_FINDS,
+    QUICK_GET_FINDS,
+    GETTING_FINDS,
     CLEAN_FINDS,
+    CLEANING,
     TURN_IN_FINDS,
+    TURNING_IN,
+    DROP_JUNK,
+    USE_LAMP,
     UNHANDLED_STATE;
 }
