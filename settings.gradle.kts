@@ -25,6 +25,7 @@
 
 rootProject.name = "bon-plugins"
 
+include(":bonanimator")
 include(":bonburier")
 include(":boncleaner")
 

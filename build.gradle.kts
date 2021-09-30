@@ -82,10 +82,6 @@ subprojects {
 
         withType<Checkstyle> {
             group = "verification"
-
-            exclude("**/ScriptVarType.java")
-            exclude("**/LayoutSolver.java")
-            exclude("**/RoomType.java")
         }
 
         register<Copy>("copyDeps") {
