@@ -17,7 +17,11 @@ You must also use Illumine's iUtil's plugin (**The iUtils plugin must be enabled
 **Github Repository name:** illu-plugins
 
 ## Plugin List
+* BonAnimator - Places animated armor sets and loots tokens in the Warriors' Guild
+  * Ensure that you have Auto Retalliate on while using this plugin
+  * Pairs well with [iQuickEater](https://github.com/illumineawake/illu-plugins) by Illumine
 * BonBurier - Automatically withdraws and buries bones
 * BonCleaner - Cleans finds in the Varrock Museum and automatically uses XP lamps
+
 ## Credits
 Thank you to Ell-tt, Illumine, and Oli for their plugin repos which I used as examples when creating this repo.
