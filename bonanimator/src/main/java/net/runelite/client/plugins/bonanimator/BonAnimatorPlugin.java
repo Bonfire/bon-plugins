@@ -137,6 +137,7 @@ public class BonAnimatorPlugin extends Plugin {
         pluginRunning = false;
         tickTimeout = 0;
         tokensObtained = 0;
+        botTimer = null;
     }
 
     @Subscribe
@@ -193,6 +194,10 @@ public class BonAnimatorPlugin extends Plugin {
             return BonAnimatorState.ANIMATING;
         }
 
+        if (npcUtils.getFirstNPCWithLocalTarget() != null) {
+            return BonAnimatorState.IN_COMBAT;
+        }
+
         if (objectUtils.getGroundItem(ItemID.WARRIOR_GUILD_TOKEN) != null) {
             return BonAnimatorState.LOOT_TOKENS;
         }
@@ -203,10 +208,6 @@ public class BonAnimatorPlugin extends Plugin {
 
         if (hasRequiredItems()) {
             return BonAnimatorState.PLACE_ARMOR;
-        }
-
-        if (npcUtils.getFirstNPCWithLocalTarget() != null) {
-            return BonAnimatorState.IN_COMBAT;
         }
 
         // Otherwise, we don't currently care about the player's status
@@ -228,7 +229,7 @@ public class BonAnimatorPlugin extends Plugin {
             case ANIMATING:
             case MOVING:
             case IN_COMBAT:
-                tickTimeout = 1 + tickDelay();
+                tickTimeout = 1;
                 break;
             case PLACE_ARMOR:
                 // ID 23955 = Magical Animator
@@ -273,7 +274,7 @@ public class BonAnimatorPlugin extends Plugin {
                     lootItem(armorToLoot);
                 }
 
-                tickTimeout = tickDelay();
+                tickTimeout = 0;
                 break;
         }
     }
