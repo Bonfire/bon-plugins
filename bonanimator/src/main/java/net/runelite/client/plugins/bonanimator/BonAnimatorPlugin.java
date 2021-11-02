@@ -1,21 +1,15 @@
 package net.runelite.client.plugins.bonanimator;
 
-import com.google.common.collect.HashMultiset;
-import com.google.common.collect.Multiset;
-import com.google.common.collect.Multisets;
 import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
+import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.events.ConfigButtonClicked;
 import net.runelite.api.events.GameTick;
-import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
-import net.runelite.client.events.PlayerLootReceived;
 import net.runelite.client.game.ItemManager;
-import net.runelite.client.game.ItemStack;
-import net.runelite.client.game.LootManager;
 import net.runelite.client.game.SpriteManager;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.input.MouseManager;
@@ -27,12 +21,11 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import org.pf4j.Extension;
 
 import javax.inject.Inject;
-import java.util.*;
-import java.util.Collections.*;
 import java.awt.*;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.List;
 
 @Extension
@@ -105,6 +98,7 @@ public class BonAnimatorPlugin extends Plugin {
     // To hold the current plugin status
     BonAnimatorState animatorState;
     boolean pluginRunning = false;
+    LocalPoint lastTickPoint = null;
 
     // For our paint
     int tokensObtained = 0;
@@ -127,6 +121,7 @@ public class BonAnimatorPlugin extends Plugin {
     protected void startUp() {
         botTimer = Instant.now();
         animatorState = null;
+        lastTickPoint = null;
         setValues();
     }
 
@@ -138,6 +133,7 @@ public class BonAnimatorPlugin extends Plugin {
         tickTimeout = 0;
         tokensObtained = 0;
         botTimer = null;
+        lastTickPoint = null;
     }
 
     @Subscribe
@@ -176,18 +172,20 @@ public class BonAnimatorPlugin extends Plugin {
             return BonAnimatorState.TICK_TIMER;
         }
 
-        Player localPlayer = client.getLocalPlayer();
-
         // If the player is null
+        Player localPlayer = client.getLocalPlayer();
         if (localPlayer == null) {
             return BonAnimatorState.NULL_PLAYER;
         }
 
         // If the player is moving
-        if (localPlayer.getPoseAnimation() != 813 && localPlayer.getPoseAnimation() != 5160 && localPlayer.getPoseAnimation() != 808) {
+        if (lastTickPoint != null && playerUtils.isMoving(lastTickPoint)) {
             tickTimeout = tickDelay();
             return BonAnimatorState.MOVING;
         }
+
+        // Set the last tick point
+        lastTickPoint = localPlayer.getLocalLocation();
 
         // If the player is animating
         if (localPlayer.getAnimation() != -1) {
