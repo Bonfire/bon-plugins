@@ -4,6 +4,7 @@ import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
 import net.runelite.api.coords.LocalPoint;
+import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ConfigButtonClicked;
 import net.runelite.api.events.GameTick;
 import net.runelite.client.callback.ClientThread;
@@ -98,7 +99,6 @@ public class BonAnimatorPlugin extends Plugin {
     // To hold the current plugin status
     BonAnimatorState animatorState;
     boolean pluginRunning = false;
-    LocalPoint lastTickPoint = null;
 
     // For our paint
     int tokensObtained = 0;
@@ -121,7 +121,6 @@ public class BonAnimatorPlugin extends Plugin {
     protected void startUp() {
         botTimer = Instant.now();
         animatorState = null;
-        lastTickPoint = null;
         setValues();
     }
 
@@ -133,7 +132,6 @@ public class BonAnimatorPlugin extends Plugin {
         tickTimeout = 0;
         tokensObtained = 0;
         botTimer = null;
-        lastTickPoint = null;
     }
 
     @Subscribe
@@ -179,13 +177,10 @@ public class BonAnimatorPlugin extends Plugin {
         }
 
         // If the player is moving
-        if (lastTickPoint != null && playerUtils.isMoving(lastTickPoint)) {
+        if (localPlayer.isMoving()) {
             tickTimeout = tickDelay();
             return BonAnimatorState.MOVING;
         }
-
-        // Set the last tick point
-        lastTickPoint = localPlayer.getLocalLocation();
 
         // If the player is animating
         if (localPlayer.getAnimation() != -1) {
