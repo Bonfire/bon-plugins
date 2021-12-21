@@ -228,7 +228,7 @@ public class BonAnimatorPlugin extends Plugin {
                 // ID 23955 = Magical Animator
                 GameObject magicalAnimator = objectUtils.findNearestGameObject(23955);
                 if (magicalAnimator != null) {
-                    MenuEntry animateArmorEntry = new MenuEntry("Animate", "<col=ffff>Magical Animator", magicalAnimator.getId(), MenuAction.GAME_OBJECT_FIRST_OPTION.getId(), magicalAnimator.getLocalLocation().getSceneX(), magicalAnimator.getLocalLocation().getSceneY(), false);
+                    LegacyMenuEntry animateArmorEntry = new LegacyMenuEntry("Animate", "<col=ffff>Magical Animator", magicalAnimator.getId(), MenuAction.GAME_OBJECT_FIRST_OPTION.getId(), magicalAnimator.getLocalLocation().getSceneX(), magicalAnimator.getLocalLocation().getSceneY(), false);
                     Rectangle animatorClickPoint = getClickPoint(magicalAnimator);
                     generalUtils.doActionMsTime(animateArmorEntry, animatorClickPoint, sleepDelay());
                     tickTimeout = tickDelay();
@@ -289,7 +289,7 @@ public class BonAnimatorPlugin extends Plugin {
 
     private void lootItem(TileItem lootItem) {
         if (lootItem != null) {
-            MenuEntry takeItemEntry = new MenuEntry("Take", "", lootItem.getId(), MenuAction.GROUND_ITEM_THIRD_OPTION.getId(),
+            LegacyMenuEntry takeItemEntry = new LegacyMenuEntry("Take", "", lootItem.getId(), MenuAction.GROUND_ITEM_THIRD_OPTION.getId(),
                     lootItem.getTile().getSceneLocation().getX(), lootItem.getTile().getSceneLocation().getY(), false);
             Rectangle itemClickPoint = lootItem.getTile().getItemLayer().getCanvasTilePoly().getBounds();
             generalUtils.doActionMsTime(takeItemEntry, itemClickPoint, sleepDelay());

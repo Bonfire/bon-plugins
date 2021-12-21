@@ -233,7 +233,7 @@ public class BonCleanerPlugin extends Plugin {
             case NEED_TOOLS:
                 Widget kitDialog = client.getWidget(WidgetInfo.DIALOG_OPTION_OPTION1);
                 if (kitDialog != null && kitDialog.getChild(0).getText().contains("cleaning kit")) {
-                    MenuEntry yesToolsEntry = new MenuEntry("Continue", "", 0, MenuAction.WIDGET_TYPE_6.getId(), 1, 14352385, false);
+                    LegacyMenuEntry yesToolsEntry = new LegacyMenuEntry("Continue", "", 0, MenuAction.WIDGET_TYPE_6.getId(), 1, 14352385, false);
                     Rectangle yesRectangle = kitDialog.getBounds();
                     generalUtils.doActionMsTime(yesToolsEntry, yesRectangle, sleepDelay());
                     timeout = tickDelay();
@@ -242,7 +242,7 @@ public class BonCleanerPlugin extends Plugin {
 
                 DecorativeObject toolsObject = objectUtils.findNearestDecorObject(ObjectID.TOOLS_24535);
                 if (toolsObject != null) {
-                    MenuEntry takeToolsEntry = new MenuEntry("Take", "<col=ffff>Tools", 24535, MenuAction.GAME_OBJECT_FIRST_OPTION.getId(), 51, 50, false);
+                    LegacyMenuEntry takeToolsEntry = new LegacyMenuEntry("Take", "<col=ffff>Tools", 24535, MenuAction.GAME_OBJECT_FIRST_OPTION.getId(), 51, 50, false);
                     Rectangle toolsRectangle = (toolsObject.getConvexHull() != null) ? toolsObject.getConvexHull().getBounds() : new Rectangle(client.getCenterX() - 50, client.getCenterY() - 50, 100, 100);
                     generalUtils.doActionMsTime(takeToolsEntry, toolsRectangle, sleepDelay());
                 }
@@ -253,7 +253,7 @@ public class BonCleanerPlugin extends Plugin {
                 GameObject rocksObject = objectUtils.findNearestGameObject(ObjectID.DIG_SITE_SPECIMEN_ROCKS, ObjectID.DIG_SITE_SPECIMEN_ROCKS_24558, ObjectID.DIG_SITE_SPECIMEN_ROCKS_24559);
 
                 if (rocksObject != null) {
-                    MenuEntry takeSpecimenEntry = new MenuEntry("Take", "<col=ffff>Dig Site specimen rocks", rocksObject.getId(), MenuAction.GAME_OBJECT_FIRST_OPTION.getId(), rocksObject.getLocalLocation().getSceneX(), rocksObject.getLocalLocation().getSceneY(), false);
+                    LegacyMenuEntry takeSpecimenEntry = new LegacyMenuEntry("Take", "<col=ffff>Dig Site specimen rocks", rocksObject.getId(), MenuAction.GAME_OBJECT_FIRST_OPTION.getId(), rocksObject.getLocalLocation().getSceneX(), rocksObject.getLocalLocation().getSceneY(), false);
                     Rectangle toolsRectangle = (rocksObject.getConvexHull() != null) ? rocksObject.getConvexHull().getBounds() : new Rectangle(client.getCenterX() - 50, client.getCenterY() - 50, 100, 100);
                     generalUtils.doActionMsTime(takeSpecimenEntry, toolsRectangle, sleepDelay());
                 }
@@ -264,7 +264,7 @@ public class BonCleanerPlugin extends Plugin {
                 GameObject quickRocksObj = objectUtils.findNearestGameObject(ObjectID.DIG_SITE_SPECIMEN_ROCKS, ObjectID.DIG_SITE_SPECIMEN_ROCKS_24558, ObjectID.DIG_SITE_SPECIMEN_ROCKS_24559);
 
                 if (quickRocksObj != null) {
-                    MenuEntry takeSpecimenEntry = new MenuEntry("Take", "<col=ffff>Dig Site specimen rocks", quickRocksObj.getId(), MenuAction.GAME_OBJECT_FIRST_OPTION.getId(), quickRocksObj.getLocalLocation().getSceneX(), quickRocksObj.getLocalLocation().getSceneY(), false);
+                    LegacyMenuEntry takeSpecimenEntry = new LegacyMenuEntry("Take", "<col=ffff>Dig Site specimen rocks", quickRocksObj.getId(), MenuAction.GAME_OBJECT_FIRST_OPTION.getId(), quickRocksObj.getLocalLocation().getSceneX(), quickRocksObj.getLocalLocation().getSceneY(), false);
                     Rectangle toolsRectangle = (quickRocksObj.getConvexHull() != null) ? quickRocksObj.getConvexHull().getBounds() : new Rectangle(client.getCenterX() - 50, client.getCenterY() - 50, 100, 100);
                     generalUtils.doActionMsTime(takeSpecimenEntry, toolsRectangle, sleepDelay());
                 }
@@ -281,7 +281,7 @@ public class BonCleanerPlugin extends Plugin {
                 GameObject cleaningTable = objectUtils.findNearestGameObject(ObjectID.SPECIMEN_TABLE_24556);
 
                 if (cleaningTable != null) {
-                    MenuEntry cleanEntry = new MenuEntry("Clean", "<col=ffff>Specimen table", cleaningTable.getId(), MenuAction.GAME_OBJECT_FIRST_OPTION.getId(), cleaningTable.getSceneMinLocation().getX(), cleaningTable.getSceneMinLocation().getY(), false);
+                    LegacyMenuEntry cleanEntry = new LegacyMenuEntry("Clean", "<col=ffff>Specimen table", cleaningTable.getId(), MenuAction.GAME_OBJECT_FIRST_OPTION.getId(), cleaningTable.getSceneMinLocation().getX(), cleaningTable.getSceneMinLocation().getY(), false);
                     Rectangle tableRectangle = (cleaningTable.getConvexHull() != null) ? cleaningTable.getConvexHull().getBounds() : new Rectangle(client.getCenterX() - 50, client.getCenterY() - 50, 100, 100);
                     generalUtils.doActionMsTime(cleanEntry, tableRectangle, sleepDelay());
                 }
@@ -298,7 +298,7 @@ public class BonCleanerPlugin extends Plugin {
             case TURN_IN_FINDS:
                 Widget turnInDialog = client.getWidget(WidgetInfo.DIALOG_OPTION_OPTION1);
                 if (turnInDialog != null && turnInDialog.getChild(0).getText().contains("placed in this crate")) {
-                    MenuEntry yesToolsEntry = new MenuEntry("Continue", "", 0, MenuAction.WIDGET_TYPE_6.getId(), 1, 14352385, false);
+                    LegacyMenuEntry yesToolsEntry = new LegacyMenuEntry("Continue", "", 0, MenuAction.WIDGET_TYPE_6.getId(), 1, 14352385, false);
                     Rectangle yesRectangle = turnInDialog.getBounds();
                     generalUtils.doActionMsTime(yesToolsEntry, yesRectangle, sleepDelay());
                     timeout = tickDelay();
@@ -307,7 +307,7 @@ public class BonCleanerPlugin extends Plugin {
 
                 GameObject storageCrate = objectUtils.findNearestGameObject(ObjectID.STORAGE_CRATE);
                 if (storageCrate != null) {
-                    MenuEntry turnInEntry = new MenuEntry("Add finds", "<col=ffff>Storage crate", storageCrate.getId(), MenuAction.GAME_OBJECT_FIRST_OPTION.getId(), storageCrate.getLocalLocation().getSceneX(), storageCrate.getLocalLocation().getSceneY(), false);
+                    LegacyMenuEntry turnInEntry = new LegacyMenuEntry("Add finds", "<col=ffff>Storage crate", storageCrate.getId(), MenuAction.GAME_OBJECT_FIRST_OPTION.getId(), storageCrate.getLocalLocation().getSceneX(), storageCrate.getLocalLocation().getSceneY(), false);
                     Rectangle crateRectangle = (storageCrate.getConvexHull() != null) ? storageCrate.getConvexHull().getBounds() : new Rectangle(client.getCenterX() - 50, client.getCenterY() - 50, 100, 100);
                     generalUtils.doActionMsTime(turnInEntry, crateRectangle, sleepDelay());
                 }
@@ -329,7 +329,7 @@ public class BonCleanerPlugin extends Plugin {
                     WidgetItem junkItem = inventoryUtils.getWidgetItem(JUNK_LIST);
 
                     if (junkItem != null) {
-                        MenuEntry dropEntry = new MenuEntry("", "", junkItem.getId(), MenuAction.ITEM_FIFTH_OPTION.getId(), junkItem.getIndex(),  WidgetInfo.INVENTORY.getId(), true);
+                        LegacyMenuEntry dropEntry = new LegacyMenuEntry("", "", junkItem.getId(), MenuAction.ITEM_FIFTH_OPTION.getId(), junkItem.getIndex(),  WidgetInfo.INVENTORY.getId(), true);
                         Rectangle itemBounds = junkItem.getCanvasBounds().getBounds();
                         generalUtils.doActionMsTime(dropEntry, itemBounds, sleepDelay());
                         timeout = 1;
@@ -353,7 +353,7 @@ public class BonCleanerPlugin extends Plugin {
                 WidgetItem expLamp = inventoryUtils.getWidgetItem(ItemID.ANTIQUE_LAMP_11189);
                 if (expLamp != null) {
                     // Open the lamp interface
-                    MenuEntry useLampEntry = new MenuEntry("Rub", "Rub", expLamp.getId(), MenuAction.ITEM_FIRST_OPTION.getId(), expLamp.getIndex(),  WidgetInfo.INVENTORY.getId(), false);
+                    LegacyMenuEntry useLampEntry = new LegacyMenuEntry("Rub", "Rub", expLamp.getId(), MenuAction.ITEM_FIRST_OPTION.getId(), expLamp.getIndex(),  WidgetInfo.INVENTORY.getId(), false);
                     Rectangle itemBounds = expLamp.getCanvasBounds().getBounds();
                     generalUtils.doActionMsTime(useLampEntry, itemBounds, sleepDelay());
                     timeout = tickDelay();
@@ -481,13 +481,13 @@ public class BonCleanerPlugin extends Plugin {
 
         Widget confirmWidget = client.getWidget(240, 26);
         if (confirmWidget != null && menuOption != null && confirmWidget.getChild(0).getText().contains(menuOption)) {
-            MenuEntry confirmEntry = new MenuEntry("Confirm", "", 1, MenuAction.CC_OP.getId(), -1, confirmWidget.getId(), false);
+            LegacyMenuEntry confirmEntry = new LegacyMenuEntry("Confirm", "", 1, MenuAction.CC_OP.getId(), -1, confirmWidget.getId(), false);
             Rectangle confirmRectangle = confirmWidget.getBounds();
             generalUtils.doActionMsTime(confirmEntry, confirmRectangle, sleepDelay());
         }
 
         if (widgetToClick != null) {
-            MenuEntry skillEntry = new MenuEntry(menuOption, "", 1, MenuAction.CC_OP.getId(), -1, widgetToClick.getId(), false);
+            LegacyMenuEntry skillEntry = new LegacyMenuEntry(menuOption, "", 1, MenuAction.CC_OP.getId(), -1, widgetToClick.getId(), false);
             Rectangle skillRectangle = widgetToClick.getBounds();
             generalUtils.doActionMsTime(skillEntry, skillRectangle, sleepDelay());
         }

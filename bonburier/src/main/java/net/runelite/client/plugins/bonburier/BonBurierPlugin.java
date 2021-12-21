@@ -270,7 +270,7 @@ public class BonBurierPlugin extends Plugin {
                 .result(client)
                 .nearestTo(client.getLocalPlayer());
         if(targetObject != null){
-            MenuEntry targetMenu = new MenuEntry("", "", targetObject.getId(), MenuAction.GAME_OBJECT_SECOND_OPTION.getId(), targetObject.getSceneMinLocation().getX(), targetObject.getSceneMinLocation().getY(), false);
+            LegacyMenuEntry targetMenu = new LegacyMenuEntry("", "", targetObject.getId(), MenuAction.GAME_OBJECT_SECOND_OPTION.getId(), targetObject.getSceneMinLocation().getX(), targetObject.getSceneMinLocation().getY(), false);
             Rectangle targetRectangle = (targetObject.getConvexHull() != null) ? targetObject.getConvexHull().getBounds() : new Rectangle(client.getCenterX() - 50, client.getCenterY() - 50, 100, 100);
             generalUtils.doActionMsTime(targetMenu, targetRectangle, sleepDelay());
         } else {
@@ -287,7 +287,7 @@ public class BonBurierPlugin extends Plugin {
         WidgetItem currentBone = inventoryUtils.getWidgetItem(config.boneID());
 
         if (currentBone != null) {
-            MenuEntry targetMenu = new MenuEntry("", "", currentBone.getId(), MenuAction.ITEM_FIRST_OPTION.getId(), currentBone.getIndex(), WidgetInfo.INVENTORY.getId(), false);
+            LegacyMenuEntry targetMenu = new LegacyMenuEntry("", "", currentBone.getId(), MenuAction.ITEM_FIRST_OPTION.getId(), currentBone.getIndex(), WidgetInfo.INVENTORY.getId(), false);
             menuUtils.setEntry(targetMenu);
             mouseUtils.delayMouseClick(currentBone.getCanvasBounds(), sleepDelay());
         } else {

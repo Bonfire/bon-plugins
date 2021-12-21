@@ -25,7 +25,7 @@ import ProjectVersions.openosrsVersion
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = "1.0.1"
+version = "1.0.2"
 
 project.extra["PluginName"] = "Bon Cleaner" // This is the name that is used in the external plugin manager panel
 project.extra["PluginDescription"] = "Cleans finds in the Varrock Museum" // This is the description that is used in the external plugin manager panel
@@ -38,7 +38,7 @@ dependencies {
 
     compileOnly("com.openosrs:runelite-api:$openosrsVersion+")
     compileOnly("com.openosrs:runelite-client:$openosrsVersion+")
-    compileOnly(group = "com.openosrs.externals", name = "iutils", version = "4.6.3+");
+    compileOnly(group = "com.openosrs.externals", name = "iutils", version = "4.7.5+");
 
     compileOnly(Libraries.apacheCommonsText)
     compileOnly(Libraries.guice)

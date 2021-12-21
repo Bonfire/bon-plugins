@@ -25,7 +25,7 @@ import ProjectVersions.openosrsVersion
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = "1.0.2"
+version = "1.0.3"
 
 project.extra["PluginName"] = "Bon Burier" // This is the name that is used in the external plugin manager panel
 project.extra["PluginDescription"] = "Buries bones" // This is the description that is used in the external plugin manager panel
@@ -38,7 +38,7 @@ dependencies {
 
     compileOnly("com.openosrs:runelite-api:$openosrsVersion+")
     compileOnly("com.openosrs:runelite-client:$openosrsVersion+")
-    compileOnly(group = "com.openosrs.externals", name = "iutils", version = "4.6.3+");
+    compileOnly(group = "com.openosrs.externals", name = "iutils", version = "4.7.5+");
 
     compileOnly(Libraries.apacheCommonsText)
     compileOnly(Libraries.guice)
