@@ -44,7 +44,7 @@ public interface BonAnimatorConfig extends Config {
             section = "instructionsTitle"
     )
     default String instructions() {
-        return "Stand in the Warriors' Guild Animation Room with an armor set's required items, select the armor set, and click start.";
+        return "Stand in the Warriors' Guild Animation Room with an armor set's required items, select the armor set, and click start. Enable auto-retalliate and use iQuick Eater to eat.";
     }
 
     @ConfigSection(
