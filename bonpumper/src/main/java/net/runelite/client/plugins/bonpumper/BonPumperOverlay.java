@@ -60,31 +60,15 @@ public class BonPumperOverlay extends OverlayPanel {
 
         TableComponent tableStatsComponent = new TableComponent();
         tableStatsComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
-        // tableStatsComponent.addRow("Bones Buried:", plugin.bonesBuried + " (" + QuantityFormatter.quantityToStackSize(plugin.getXPPerHour()) + "/hr)");
-
-        TableComponent tableDelayComponent = new TableComponent();
-        tableDelayComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
-        tableDelayComponent.addRow("Sleep delay:", plugin.sleepLength + "ms");
-        tableDelayComponent.addRow("Tick delay:", String.valueOf(plugin.timeout));
 
         if (!tableComponent.isEmpty()) {
             panelComponent.setPreferredSize(new Dimension(200, 200));
             panelComponent.setBorder(new Rectangle(5, 5, 5, 5));
             panelComponent.getChildren().add(TitleComponent.builder()
-                    .text("BonBurier")
+                    .text("BonPumper")
                     .color(ColorUtil.fromHex("#40C4FF"))
                     .build());
             panelComponent.getChildren().add(tableComponent);
-            panelComponent.getChildren().add(TitleComponent.builder()
-                    .text("Stats")
-                    .color(ColorUtil.fromHex("#45D463"))
-                    .build());
-            panelComponent.getChildren().add(tableStatsComponent);
-            panelComponent.getChildren().add(TitleComponent.builder()
-                    .text("Delays")
-                    .color(ColorUtil.fromHex("#F8BBD0"))
-                    .build());
-            panelComponent.getChildren().add(tableDelayComponent);
         }
         return super.render(graphics);
     }
