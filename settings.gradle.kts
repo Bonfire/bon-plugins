@@ -28,6 +28,7 @@ rootProject.name = "bon-plugins"
 include(":bonanimator")
 include(":bonburier")
 include(":boncleaner")
+include(":bonpumper")
 
 for (project in rootProject.children) {
     project.apply {
