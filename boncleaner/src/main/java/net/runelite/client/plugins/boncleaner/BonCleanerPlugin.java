@@ -80,6 +80,7 @@ public class BonCleanerPlugin extends Plugin {
     boolean pluginRunning = false;
     boolean shouldDrop = false;
     boolean isDropping = false;
+    int dropIterationCount = 0;
 
     // Global utility objects
     @Inject
@@ -247,7 +248,7 @@ public class BonCleanerPlugin extends Plugin {
 
                 DecorativeObject toolsObject = objectUtils.findNearestDecorObject(ObjectID.TOOLS_24535);
                 if (toolsObject != null) {
-                    LegacyMenuEntry takeToolsEntry = new LegacyMenuEntry("Take", "<col=ffff>Tools", 24535, MenuAction.GAME_OBJECT_FIRST_OPTION.getId(), 51, 50, false);
+                    LegacyMenuEntry takeToolsEntry = new LegacyMenuEntry("Take", "<col=ffff>Tools", 24535, MenuAction.GAME_OBJECT_FIRST_OPTION.getId(), toolsObject.getLocalLocation().getSceneX(), toolsObject.getLocalLocation().getSceneY(), false);
                     Rectangle toolsRectangle = (toolsObject.getConvexHull() != null) ? toolsObject.getConvexHull().getBounds() : new Rectangle(client.getCenterX() - 50, client.getCenterY() - 50, 100, 100);
                     generalUtils.doActionMsTime(takeToolsEntry, toolsRectangle, sleepDelay());
                     timeout = tickDelay();
@@ -346,17 +347,20 @@ public class BonCleanerPlugin extends Plugin {
                 }
             case DROP_JUNK:
                 if (inventoryUtils.containsItem(JUNK_LIST)) {
-                    if (!isDropping) {
+                    if (!isDropping || dropIterationCount > 5) {
                         inventoryUtils.dropItems(JUNK_LIST, true, config.sleepMin(), config.sleepMax());
                         isDropping = true;
+                        dropIterationCount = 0;
                     }
 
+                    dropIterationCount++;
                     timeout = tickDelay();
                     break;
                 }
 
                 shouldDrop = false;
                 isDropping = false;
+                dropIterationCount = 0;
                 timeout = tickDelay();
                 break;
             case USE_LAMP:
