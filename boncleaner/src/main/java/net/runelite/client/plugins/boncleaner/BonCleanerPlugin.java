@@ -79,6 +79,7 @@ public class BonCleanerPlugin extends Plugin {
     BonCleanerState cleanerState;
     boolean pluginRunning = false;
     boolean shouldDrop = false;
+    boolean isDropping = false;
 
     // Global utility objects
     @Inject
@@ -139,9 +140,19 @@ public class BonCleanerPlugin extends Plugin {
             return BonCleanerState.NULL_PLAYER;
         }
 
+        // If the player is moving
+        if (playerUtils.isMoving()) {
+            timeout = tickDelay();
+            return BonCleanerState.MOVING;
+        }
+
         // If we're currently performing the find cleaning animation, we shouldn't attempt to clean more finds
         if (CLEANING_ANIMATIONS.contains(localPlayer.getAnimation())) {
             return BonCleanerState.CLEANING;
+        }
+
+        if (!inventoryUtils.containsItem(TOOL_LIST)) {
+            return BonCleanerState.NEED_TOOLS;
         }
 
         // If we're currently performing the "bury bones" animation, we could be doing one of two things:
@@ -163,25 +174,19 @@ public class BonCleanerPlugin extends Plugin {
             }
         }
 
-        // Drop all junk items if we need to
-        if (shouldDrop) {
-            return BonCleanerState.DROP_JUNK;
-        }
-
         // If there is time left on the tick time
         if (timeout > 0) {
             return BonCleanerState.TICK_TIMER;
         }
 
+        // Drop all junk items if we need to
+        if (shouldDrop) {
+            return BonCleanerState.DROP_JUNK;
+        }
+
         // If the player's inventory contains an experience lamp, let's use it on the skill that the user chose
         if (inventoryUtils.containsItem(ItemID.ANTIQUE_LAMP_11189)) {
             return BonCleanerState.USE_LAMP;
-        }
-
-        // If the player is moving
-        if (localPlayer.getPoseAnimation() != 813 && localPlayer.getPoseAnimation() != 5160 && localPlayer.getPoseAnimation() != 808) {
-            timeout = tickDelay();
-            return BonCleanerState.MOVING;
         }
 
         // If the player is animating
@@ -245,11 +250,16 @@ public class BonCleanerPlugin extends Plugin {
                     LegacyMenuEntry takeToolsEntry = new LegacyMenuEntry("Take", "<col=ffff>Tools", 24535, MenuAction.GAME_OBJECT_FIRST_OPTION.getId(), 51, 50, false);
                     Rectangle toolsRectangle = (toolsObject.getConvexHull() != null) ? toolsObject.getConvexHull().getBounds() : new Rectangle(client.getCenterX() - 50, client.getCenterY() - 50, 100, 100);
                     generalUtils.doActionMsTime(takeToolsEntry, toolsRectangle, sleepDelay());
+                    timeout = tickDelay();
+                    break;
                 }
 
                 timeout = tickDelay();
                 break;
             case GET_FINDS:
+                // If we're getting finds, it means we're done dropping
+                isDropping = false;
+
                 GameObject rocksObject = objectUtils.findNearestGameObject(ObjectID.DIG_SITE_SPECIMEN_ROCKS, ObjectID.DIG_SITE_SPECIMEN_ROCKS_24558, ObjectID.DIG_SITE_SPECIMEN_ROCKS_24559);
 
                 if (rocksObject != null) {
@@ -261,6 +271,9 @@ public class BonCleanerPlugin extends Plugin {
                 timeout = tickDelay();
                 break;
             case QUICK_GET_FINDS:
+                // If we're getting finds, it means we're done dropping
+                isDropping = false;
+
                 GameObject quickRocksObj = objectUtils.findNearestGameObject(ObjectID.DIG_SITE_SPECIMEN_ROCKS, ObjectID.DIG_SITE_SPECIMEN_ROCKS_24558, ObjectID.DIG_SITE_SPECIMEN_ROCKS_24559);
 
                 if (quickRocksObj != null) {
@@ -305,6 +318,13 @@ public class BonCleanerPlugin extends Plugin {
                     break;
                 }
 
+                Widget noMoreFindsDialog = client.getWidget(WidgetInfo.DIALOG_PLAYER_TEXT);
+                if (noMoreFindsDialog != null && noMoreFindsDialog.getText().contains("don't think")) {
+                    shouldDrop = true;
+                    timeout = tickDelay();
+                    break;
+                }
+
                 GameObject storageCrate = objectUtils.findNearestGameObject(ObjectID.STORAGE_CRATE);
                 if (storageCrate != null) {
                     LegacyMenuEntry turnInEntry = new LegacyMenuEntry("Add finds", "<col=ffff>Storage crate", storageCrate.getId(), MenuAction.GAME_OBJECT_FIRST_OPTION.getId(), storageCrate.getLocalLocation().getSceneX(), storageCrate.getLocalLocation().getSceneY(), false);
@@ -326,20 +346,19 @@ public class BonCleanerPlugin extends Plugin {
                 }
             case DROP_JUNK:
                 if (inventoryUtils.containsItem(JUNK_LIST)) {
-                    WidgetItem junkItem = inventoryUtils.getWidgetItem(JUNK_LIST);
-
-                    if (junkItem != null) {
-                        LegacyMenuEntry dropEntry = new LegacyMenuEntry("", "", junkItem.getId(), MenuAction.ITEM_FIFTH_OPTION.getId(), junkItem.getIndex(),  WidgetInfo.INVENTORY.getId(), true);
-                        Rectangle itemBounds = junkItem.getCanvasBounds().getBounds();
-                        generalUtils.doActionMsTime(dropEntry, itemBounds, sleepDelay());
-                        timeout = 1;
-                        break;
+                    if (!isDropping) {
+                        inventoryUtils.dropItems(JUNK_LIST, true, config.sleepMin(), config.sleepMax());
+                        isDropping = true;
                     }
-                } else {
-                    shouldDrop = false;
+
                     timeout = tickDelay();
                     break;
                 }
+
+                shouldDrop = false;
+                isDropping = false;
+                timeout = tickDelay();
+                break;
             case USE_LAMP:
                 // Use the lamp on the skill the user has selected (or a random one) if the interface is open
                 Widget skillInterface = client.getWidget(240, 0);
@@ -349,7 +368,7 @@ public class BonCleanerPlugin extends Plugin {
                     break;
                 }
 
-                // If the "Use XP Reward" interface is not open, open it
+                // Rub the lamp if the interface is not open
                 WidgetItem expLamp = inventoryUtils.getWidgetItem(ItemID.ANTIQUE_LAMP_11189);
                 if (expLamp != null) {
                     // Open the lamp interface
@@ -484,12 +503,15 @@ public class BonCleanerPlugin extends Plugin {
             LegacyMenuEntry confirmEntry = new LegacyMenuEntry("Confirm", "", 1, MenuAction.CC_OP.getId(), -1, confirmWidget.getId(), false);
             Rectangle confirmRectangle = confirmWidget.getBounds();
             generalUtils.doActionMsTime(confirmEntry, confirmRectangle, sleepDelay());
+            timeout = tickDelay();
+            return;
         }
 
         if (widgetToClick != null) {
             LegacyMenuEntry skillEntry = new LegacyMenuEntry(menuOption, "", 1, MenuAction.CC_OP.getId(), -1, widgetToClick.getId(), false);
             Rectangle skillRectangle = widgetToClick.getBounds();
             generalUtils.doActionMsTime(skillEntry, skillRectangle, sleepDelay());
+            timeout = tickDelay();
         }
     }
 }
