@@ -239,9 +239,10 @@ public class BonCleanerPlugin extends Plugin {
             case NEED_TOOLS:
                 Widget kitDialog = client.getWidget(WidgetInfo.DIALOG_OPTION_OPTION1);
                 if (kitDialog != null && kitDialog.getChild(0).getText().contains("cleaning kit")) {
-                    LegacyMenuEntry yesToolsEntry = new LegacyMenuEntry("Continue", "", 0, MenuAction.WIDGET_TYPE_6.getId(), 1, 14352385, false);
+                    LegacyMenuEntry yesToolsEntry = new LegacyMenuEntry("Continue", "", 0, MenuAction.WIDGET_CONTINUE.getId(), 1, 14352385, false);
                     Rectangle yesRectangle = kitDialog.getBounds();
                     generalUtils.doActionMsTime(yesToolsEntry, yesRectangle, sleepDelay());
+
                     timeout = tickDelay();
                     break;
                 }
@@ -312,7 +313,7 @@ public class BonCleanerPlugin extends Plugin {
             case TURN_IN_FINDS:
                 Widget turnInDialog = client.getWidget(WidgetInfo.DIALOG_OPTION_OPTION1);
                 if (turnInDialog != null && turnInDialog.getChild(0).getText().contains("placed in this crate")) {
-                    LegacyMenuEntry yesToolsEntry = new LegacyMenuEntry("Continue", "", 0, MenuAction.WIDGET_TYPE_6.getId(), 1, 14352385, false);
+                    LegacyMenuEntry yesToolsEntry = new LegacyMenuEntry("Continue", "", 0, MenuAction.WIDGET_CONTINUE.getId(), 1, 14352385, false);
                     Rectangle yesRectangle = turnInDialog.getBounds();
                     generalUtils.doActionMsTime(yesToolsEntry, yesRectangle, sleepDelay());
                     timeout = tickDelay();
@@ -348,7 +349,7 @@ public class BonCleanerPlugin extends Plugin {
             case DROP_JUNK:
                 if (inventoryUtils.containsItem(JUNK_LIST)) {
                     if (!isDropping || dropIterationCount > 5) {
-                        inventoryUtils.dropItems(JUNK_LIST, true, config.sleepMin(), config.sleepMax());
+                        inventoryUtils.dropAllExcept(TOOL_LIST, true, config.sleepMin(), config.sleepMax());
                         isDropping = true;
                         dropIterationCount = 0;
                     }
