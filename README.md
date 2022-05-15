@@ -22,6 +22,7 @@ You must also use Illumine's iUtil's plugin (**The iUtils plugin must be enabled
   * Pairs well with [iQuickEater](https://github.com/illumineawake/illu-plugins) by Illumine
 * BonBurier - Automatically withdraws and buries bones
 * BonCleaner - Cleans finds in the Varrock Museum and automatically uses XP lamps
+* BonPumper - Pumps at the Blast Furnace minigame
 
 ## Sponsors
 
