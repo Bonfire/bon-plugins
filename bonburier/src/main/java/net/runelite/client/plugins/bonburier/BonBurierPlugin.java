@@ -20,6 +20,7 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDependency;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.iutils.*;
+import net.runelite.client.plugins.iutils.util.LegacyInventoryAssistant;
 import net.runelite.client.ui.overlay.OverlayManager;
 import org.pf4j.Extension;
 
@@ -90,6 +91,9 @@ public class BonBurierPlugin extends Plugin {
 
     @Inject
     private SpriteManager spriteManager;
+
+    @Inject
+    private LegacyInventoryAssistant inventoryAssistant;
 
     // Timings
     int timeout = 0;
@@ -238,7 +242,7 @@ public class BonBurierPlugin extends Plugin {
             case ANIMATING:
             case MOVING:
                 playerUtils.handleRun(30, 20);
-                timeout = 1 + tickDelay();
+                timeout = 1;
                 break;
             case INVENTORY_EMPTY:
                 openBank();
@@ -287,7 +291,7 @@ public class BonBurierPlugin extends Plugin {
         WidgetItem currentBone = inventoryUtils.getWidgetItem(config.boneID());
 
         if (currentBone != null) {
-            LegacyMenuEntry targetMenu = new LegacyMenuEntry("", "", currentBone.getId(), MenuAction.ITEM_FIRST_OPTION.getId(), currentBone.getIndex(), WidgetInfo.INVENTORY.getId(), false);
+            LegacyMenuEntry targetMenu = inventoryAssistant.getLegacyMenuEntry(currentBone.getId(), "Bury");
             menuUtils.setEntry(targetMenu);
             mouseUtils.delayMouseClick(currentBone.getCanvasBounds(), sleepDelay());
         } else {
